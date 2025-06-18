@@ -15,10 +15,12 @@ add_compile_options(-std=c++17)
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-# find_package(opencv REQUIRED)
+set(OpenCV_DIR "/usr/lib/x86_64-linux-gnu/cmake/opencv4")
+find_package(OpenCV REQUIRED)
 find_package(sensor_msgs REQUIRED)
-# find_package(cv_bridge REQUIRED)
-# find_package(rosidl_default_generators REQUIRED)
+find_package(cv_bridge REQUIRED)
+
+add_subdirectory(src/algorithm)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -32,28 +34,17 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-# # 创建可执行文件
-# add_executable(testPublish_node src/testPublish_node.cpp)
-# # 添加依赖
-# ament_target_dependencies(testPublish_node 
-#   rclcpp 
-#   sensor_msgs
-# )
+# add nodes
+add_executable(camera_node src/camera_node.cpp)
+ament_target_dependencies(camera_node 
+  rclcpp std_msgs OpenCV sensor_msgs cv_bridge)
+install(TARGETS camera_node DESTINATION lib/${PROJECT_NAME})
 
-# # 创建可执行文件
-# add_executable(testSubscribe_node src/testSubscribe_node.cpp)
-# # 添加依赖
-# ament_target_dependencies(testSubscribe_node 
-#   rclcpp 
-#   sensor_msgs
-# )
-
-# # 安装可执行文件
-# install(TARGETS 
-#   testPublish_node
-#   testSubscribe_node
-#   DESTINATION lib/${PROJECT_NAME}
-# )
+add_executable(detection_node src/detection_node.cpp)
+ament_target_dependencies(detection_node 
+  rclcpp std_msgs OpenCV sensor_msgs cv_bridge)
+target_link_libraries(detection_node algorithm)
+install(TARGETS detection_node DESTINATION lib/${PROJECT_NAME})
 
 # 安装 launch 文件
 install(DIRECTORY
