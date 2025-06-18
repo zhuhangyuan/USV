@@ -1,0 +1,30 @@
+{
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "variable.other.property", //"scope": "variable.other.property"
+                "settings": {
+                    "foreground": "#E5C07B"  // #E5C07B、#E06C75
+                }
+            }
+        ]
+    },
+    "C_Cpp.default.compilerPath": "/usr/bin/g++",    
+    "clangd.arguments": [
+        "--compile-commands-dir=/home/jiahan/Desktop/learn_ros/USV/build",
+        "--background-index",                   // 在后台自动分析文件（基于complie_commands)
+        "-j=4",                                 // 同时开启的任务数量
+        "--query-driver=/usr/bin/g++*",
+        "--clang-tidy",                         // clang-tidy 功能
+        "--clang-tidy-checks=performance-*,bugprone-*",
+    
+        "--header-insertion=iwyu",              // 补充头文件的形式
+        "--pch-storage=disk",                   // pch 优化的位置
+        
+        "--all-scopes-completion",
+        "--completion-style=detailed",
+    
+        "--function-arg-placeholders=false", //关闭自动补全形参
+        // "--log=verbose",
+    ]
+}
