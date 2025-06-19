@@ -34,3 +34,11 @@ set(CMAKE_CXX_COMPILER /usr/bin/g++)
 ```
 
 这样clangd就能对标准库进行索引了
+
+2. 节点install后找不到所依赖的自己编译的库
+- 解决方法：
+在CMakeLists.txt中添加
+```
+set(CMAKE_INSTALL_RPATH "$ORIGIN")  # 让可执行文件从同级目录找.so
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)  # 构建时也使用安装后的RPATH
+```

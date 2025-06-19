@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.8)
 project(perception_2d)
 
+# 全局设置
+set(CMAKE_INSTALL_RPATH "$ORIGIN")
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -39,6 +44,7 @@ add_executable(camera_node src/camera_node.cpp)
 ament_target_dependencies(camera_node 
   rclcpp std_msgs OpenCV sensor_msgs cv_bridge)
 install(TARGETS camera_node DESTINATION lib/${PROJECT_NAME})
+
 
 add_executable(detection_node src/detection_node.cpp)
 ament_target_dependencies(detection_node 
