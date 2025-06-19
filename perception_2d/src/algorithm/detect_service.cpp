@@ -1,8 +1,10 @@
 #include "detect_service.h"
 
-DetectService::DetectService()
+DetectService::DetectService(const std::string &engine_file_path, const cv::Size &input_size)
 {
     cudaSetDevice(0);
+    this->engine_file_path = engine_file_path;
+    this->input_size = input_size;
     this->model = std::make_unique<YOLOv8>(this->engine_file_path);
     this->model->make_pipe(true);
 }

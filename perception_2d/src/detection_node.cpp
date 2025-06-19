@@ -23,7 +23,12 @@ class DetectionNode : public rclcpp::Node
             });
 
         // 读取模型权重
-        this->detect_service = std::make_unique<DetectService>();
+        this->declare_parameter<std::string>("engine_path", "");
+        std::string engine_path = this->get_parameter("engine_path").as_string();
+        this->declare_parameter<int>("input_size", 1024);
+        int input_size = this->get_parameter("input_size").as_int();
+
+        this->detect_service = std::make_unique<DetectService>(engine_path, cv::Size(input_size, input_size));
     }
 
     ~DetectionNode()
@@ -38,21 +43,15 @@ class DetectionNode : public rclcpp::Node
             // 将 ROS Image 消息转换为 cv::Mat
             cv_bridge::CvImagePtr cv_ptr = cv_bridge::toCvCopy(msg, msg->encoding);
 
-            cv::Mat frame = cv_ptr->image;
+            cv::Mat origin_img = cv_ptr->image;
             cv::Mat input_img;
-            cv::resize(frame, input_img, cv::Size(1024, 1024));
+            cv::resize(origin_img, input_img, this->detect_service->get_input_size());
 
             std::vector<Object> objects;
             auto res = this->detect_service->predict(input_img, objects, 0.5, 0.5, 10, 80);
 
             cv::imshow("Subscribed Image", res);
             cv::waitKey(1);
-
-            // 打印图像信息
-            RCLCPP_INFO(
-                this->get_logger(),
-                "Received image: width=%d, height=%d",
-                frame.cols, frame.rows);
         }
         catch (cv_bridge::Exception &e)
         {

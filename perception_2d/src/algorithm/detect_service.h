@@ -6,9 +6,9 @@
 class DetectService
 {
   public:
-    DetectService();
+    DetectService(const std::string &engine_file_path, const cv::Size &input_size);
     ~DetectService();
-    cv::Size get_input_size() const { return input_size; }
+    cv::Size get_input_size() { return input_size; }
 
     /**
      * @brief 进行一次推理
@@ -26,8 +26,8 @@ class DetectService
 
   private:
     std::unique_ptr<YOLOv8> model;
-    const std::string engine_file_path = "/home/jiahan/Desktop/learn_ros/USV/yolo11n.engine";
-    const cv::Size input_size = cv::Size(1024, 1024);
+    std::string engine_file_path;
+    cv::Size input_size;
 
     const std::vector<std::string> CLASS_NAMES = {
         "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train",
