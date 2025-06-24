@@ -14,7 +14,7 @@ class CameraNode : public rclcpp::Node
         : Node("camera_node")
     {
         // 声明参数：视频文件路径（默认为空，需要用户指定）
-        this->declare_parameter<std::string>("video_path", "");
+        this->declare_parameter<std::string>("video_path", "/home/jiahan/Desktop/learn_ros/USV/imgs/ship.mp4");
 
         // 获取视频路径参数
         std::string video_path = this->get_parameter("video_path").as_string();

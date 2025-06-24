@@ -24,6 +24,7 @@ set(OpenCV_DIR "/usr/lib/x86_64-linux-gnu/cmake/opencv4")
 find_package(OpenCV REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
+find_package(robot_msgs REQUIRED) # 自定义的消息包
 
 add_subdirectory(src/algorithm)
 
@@ -48,7 +49,7 @@ install(TARGETS camera_node DESTINATION lib/${PROJECT_NAME})
 
 add_executable(detection_node src/detection_node.cpp)
 ament_target_dependencies(detection_node 
-  rclcpp std_msgs OpenCV sensor_msgs cv_bridge)
+  rclcpp std_msgs OpenCV sensor_msgs cv_bridge robot_msgs)
 target_link_libraries(detection_node algorithm)
 install(TARGETS detection_node DESTINATION lib/${PROJECT_NAME})
 

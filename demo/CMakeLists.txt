@@ -51,6 +51,10 @@ add_executable(Subscribe_robotmsg_node src/Subscribe_robotmsg_node.cpp)
 ament_target_dependencies(Subscribe_robotmsg_node rclcpp robot_msgs)
 install(TARGETS Subscribe_robotmsg_node DESTINATION lib/${PROJECT_NAME})
 
+add_executable(Subscribe_test_node src/Subscribe_test_node.cpp)
+ament_target_dependencies(Subscribe_test_node rclcpp robot_msgs)
+install(TARGETS Subscribe_test_node DESTINATION lib/${PROJECT_NAME})
+
 # 安装 launch 文件
 install(DIRECTORY
   launch

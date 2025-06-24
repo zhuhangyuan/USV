@@ -25,6 +25,9 @@ endif()
 find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Object2D.msg"
+  "msg/perception_2d_msg/BBox.msg"
+  "msg/perception_2d_msg/Detection.msg"
+  "msg/perception_2d_msg/FrameDetections.msg"
   DEPENDENCIES std_msgs
 )
 
