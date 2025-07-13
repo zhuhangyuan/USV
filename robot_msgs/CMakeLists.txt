@@ -28,6 +28,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/perception_2d_msg/BBox.msg"
   "msg/perception_2d_msg/Detection.msg"
   "msg/perception_2d_msg/FrameDetections.msg"
+  "msg/perception_2d_msg/VideoDetections.msg"
   DEPENDENCIES std_msgs
 )
 

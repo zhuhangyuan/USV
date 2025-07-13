@@ -53,6 +53,12 @@ ament_target_dependencies(detection_node
 target_link_libraries(detection_node algorithm)
 install(TARGETS detection_node DESTINATION lib/${PROJECT_NAME})
 
+add_executable(model_test_node src/model_test_node.cpp)
+ament_target_dependencies(model_test_node 
+  rclcpp std_msgs OpenCV sensor_msgs cv_bridge)
+target_link_libraries(model_test_node algorithm)
+install(TARGETS model_test_node DESTINATION lib/${PROJECT_NAME})
+
 # 安装 launch 文件
 install(DIRECTORY
   launch

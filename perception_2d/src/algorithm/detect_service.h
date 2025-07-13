@@ -21,13 +21,27 @@ class DetectService
      * @return 绘制了结果的图片
      */
     cv::Mat predict(const cv::Mat &image, std::vector<Object> &results,
-                    const float score_thres = 0.25f, const float iou_thres = 0.65f,
-                    const int topk = 10, const int num_labels = 1);
+                    const float score_thres = 0.5f, const float iou_thres = 0.65f,
+                    const int topk = 30, const int num_labels = 1);
 
   private:
     std::unique_ptr<YOLOv8> model;
     std::string engine_file_path;
     cv::Size input_size;
+
+    // const std::vector<std::string> CLASS_NAMES = {
+    //     "ship", "rubbish", "harbor", "bridge", "buoy", "ball", "platform", "grass"};
+
+    // const std::vector<std::vector<unsigned int>> COLORS = {
+    //     {0, 0, 255}, {0, 255, 0}, {255, 0, 0}, {255, 255, 0}, {0, 255, 255}, {255, 0, 255}, {255, 255, 255}};
+
+
+    // const std::vector<std::string> CLASS_NAMES = {
+    //     "ship", "boat", "rubbish", "harbor", "bridge", "buoy", "ball", "platform", "grass"};
+
+    // const std::vector<std::vector<unsigned int>> COLORS = {
+    //     {0, 0, 255}, {0, 255, 0}, {255, 0, 0}, {255, 255, 0}, {0, 255, 255}, {255, 0, 255}, {255, 255, 255}, {128, 128, 128}};
+
 
     const std::vector<std::string> CLASS_NAMES = {
         "ship"};
